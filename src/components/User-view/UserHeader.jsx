@@ -63,18 +63,18 @@ function HeaderContent() {
       </Sheet>
 
       {/* User Dropdown */}
-      <DropdownMenu>
+      <DropdownMenu >
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black">
-            <AvatarFallback className="text-white bg-black font-extralight">
+          <AvatarFallback className="text-white cursor-pointer bg-black font-extralight">
               {user?.username?.[0]?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="right" className="w-56">
+        <DropdownMenuContent side="right" className="w-56 cursor-pointer">
           <DropdownMenuLabel>Logged in as {user?.username}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate('/user/account')}>
+          <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/user/account')}>
             <UserRound className="w-4 h-4 mr-2" />
             <span>Account</span>
           </DropdownMenuItem>
@@ -166,12 +166,12 @@ const UserHeader = () => {
           </Link>
 
           {/* Search Bar */}
-          <div className="hidden md:flex relative items-center w-full mx-12 max-w-[700px]">
+          <div className="hidden md:flex cursor-pointer relative items-center w-full mx-12 max-w-[700px]">
             <Search className="absolute left-2 w-5 h-5 text-gray-500" />
             <input 
               type="text" 
               placeholder="Search books..." 
-              className="p-2 pl-8 outline-none w-full border-none bg-muted rounded-md"
+              className="p-2 pl-8 outline-none cursor-pointer w-full border-none bg-muted rounded-md"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={handleSearch}

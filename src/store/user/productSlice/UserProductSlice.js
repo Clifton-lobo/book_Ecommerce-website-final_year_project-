@@ -29,7 +29,9 @@ const productSlice = createSlice({
     name: 'userProduct',
     initialState,
     reducers:{
-       
+        resetproductDetails: (state) => {
+            state.productDetails = null;
+        },
     },
     extraReducers:(builder)=>{
         builder

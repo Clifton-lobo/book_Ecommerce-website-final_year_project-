@@ -10,7 +10,7 @@ import ProductTile from "./ProductTile"
 import { createSearchParams, useSearchParams } from "react-router-dom"
 import UserProductDetails from "./UserProductDetails"
 import { addToCart, fetchCartItems } from "@/store/user/cartSlice/CartSlice"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"  
 
 const UserProduct = () => {
   

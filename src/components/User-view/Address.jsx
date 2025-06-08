@@ -15,9 +15,10 @@ const initialAddressFormData = {
   notes: '',
 };
 
-const Address = ({setCurrentSelectedAddress}) => {
+const Address = ({ setCurrentSelectedAddress }) => {
   const [formData, setFormData] = useState(initialAddressFormData);
   const [currentEditedId, setCurrentEditedId] = useState(null);
+  const [selectedAddressId, setSelectedAddressId] = useState(null); // new state  
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { addressList } = useSelector((state) => state.shopAddress);
@@ -35,12 +36,11 @@ const Address = ({setCurrentSelectedAddress}) => {
     }
 
     if (currentEditedId) {
-      // Editing an existing address
       dispatch(
         editAddress({
           userId: user?.id,
           addressId: currentEditedId,
-          formData, // Pass form data correctly
+          formData,
         })
       ).then((data) => {
         if (data?.payload?.success) {
@@ -51,7 +51,6 @@ const Address = ({setCurrentSelectedAddress}) => {
         }
       });
     } else {
-      // Adding a new address
       dispatch(
         addAddress({
           ...formData,
@@ -99,31 +98,39 @@ const Address = ({setCurrentSelectedAddress}) => {
     });
   }
 
+  function handleSelectAddress(address) {
+    setSelectedAddressId(address._id);
+    setCurrentSelectedAddress(address);
+    toast({ title: 'Address selected', variant: 'default' });
+  }
+
   return (
-    <Card>  
+    <Card>
       {/* Address List */}
       <div className='mb-5 p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-5'>
-        { addressList && addressList.length > 0 
-          ? addressList.map(addressItem => (
-              <AddressCard 
-                key={addressItem._id}
-                handleDeleteAddress={handleDeleteAddress}
-                handleEditAddress={handleEditAddress}
-                addressInfo={addressItem} 
-                setCurrentSelectedAddress={setCurrentSelectedAddress}
-              />
-            )) 
-          : <p className="text-gray-500 text-center">No addresses available.</p>
-        }
-      </div> 
-      
+        {addressList && addressList.length > 0 ? (
+          addressList.map((addressItem) => (
+            <AddressCard
+              key={addressItem._id}
+              addressInfo={addressItem}
+              handleDeleteAddress={handleDeleteAddress}
+              handleEditAddress={handleEditAddress}
+              setCurrentSelectedAddress={handleSelectAddress}
+              isSelected={selectedAddressId === addressItem._id}
+            />
+          ))
+        ) : (
+          <p className="text-gray-500 text-center">No addresses available.</p>
+        )}
+      </div>
+
       {/* Add/Edit Address Section */}
       <CardHeader>
         <CardTitle>
           {currentEditedId ? 'Edit Address' : 'Add Address'}
         </CardTitle>
-      </CardHeader>   
-      
+      </CardHeader>
+
       <CardContent className='space-y-4'>
         <CommonForm
           formControls={addressFormControls}

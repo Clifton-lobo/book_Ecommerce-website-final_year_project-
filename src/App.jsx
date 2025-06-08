@@ -22,6 +22,7 @@ import { useEffect } from 'react'
 import { Skeleton } from "@/components/ui/skeleton"
 import PaypalReturn from './pages/UserViewPages/PaypalReturn'
 import Search from './pages/UserViewPages/Search'
+import PaymentSuccess from './pages/UserViewPages/PaymentSuccess'
 
 // import Form from './components/common/Form'
 
@@ -82,7 +83,7 @@ function App() {
               <Route path='checkout' element={<Checkout/>}/>
               <Route path='account' element={<Account/>}/>
               <Route path='products' element={<UserProduct/>}/>
-              <Route path='paypal-return' element={<PaypalReturn/>}/>
+              <Route path='success' element={<PaymentSuccess/>}/>
               <Route path='search' element={<Search/>}/>
           </Route> 
           
